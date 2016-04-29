@@ -97,10 +97,6 @@ function onWindowResize() {
 }
 
 function render() {
-  if (Math.random() < 0.02) {
-    //grid.randomHighlight();
-  }
-
   renderer.clear();
 	renderer.render(scene, camera, fbo);
 	renderer.render(mappingScene, mappingCamera);
@@ -108,5 +104,6 @@ function render() {
 
 export default {
   setup,
-  render
+  render,
+  grid
 };
