@@ -1,7 +1,7 @@
+import data from 'js/data.js';
+
 var sprites = [];
 var mesh;
-var numX = 19;
-var numY = 26;
 var loadCallback;
 
 function setup(cb) {
@@ -12,38 +12,28 @@ function setup(cb) {
 
 function onTextureLoaded(texture) {
   var geometry = new THREE.Geometry();
-  var w = 1280;
-  var h = 800 * 3;
-  var size = 72;
-  var offset = 201;
-  for ( var i = 0; i < numX; i ++ ) {
-    for ( var j = 0; j < numY; j ++ ) {
-      if (j == numY-1 && i%2) continue;
-			var vertex = new THREE.Vector3();
-			vertex.x = -w * 0.5 + 67 * (i + 0.5);
-			vertex.y = -h * 0.5 + 77 * (j + 0.5) + (i%2?size*0.5:0);
-      vertex.y += offset;
-			vertex.z = 0;
-			geometry.vertices.push(vertex);
-      // vertex colors
-      var color = new THREE.Color();
-      if (Math.random() < 0.1) {
-        color.setHSL( 0, 0, 1 );
-      } else {
-        color.setHSL( 0, 0, 1 );
-      }
-      geometry.colors.push(color);
-		}
+
+  for ( var i = 0; i < data.items.length; i++ ) {
+		var vertex = new THREE.Vector3();
+		vertex.x = data.items[i].position.x;
+		vertex.y = data.items[i].position.y;
+		vertex.z = 0;
+		geometry.vertices.push(vertex);
+    // vertex colors
+    var color = new THREE.Color();
+    if (Math.random() < 0.1) {
+      color.setHSL( 0, 0, 1 );
+    } else {
+      color.setHSL( 0, 0, 1 );
+    }
+    geometry.colors.push(color);
   }
 
   var material = new THREE.PointsMaterial( {
     map: texture,
     size: 0.95,
-    // color: 0xffffff,
     transparent: true,
     vertexColors: THREE.VertexColors
-    // blending: THREE.AdditiveBlending,
-    // depthTest: false
   });
 	mesh = new THREE.Points(geometry, material);
 
