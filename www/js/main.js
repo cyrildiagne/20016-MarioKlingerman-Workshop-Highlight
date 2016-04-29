@@ -1,15 +1,16 @@
 import scene from 'js/scene.js';
 
 var updateId, isActive = false;
+var names = ['Andre', 'Pierry', 'Corentin', 'Luca', 'Justine', 'Adrien', 'Mathilde', 'Guillaume', 'Giulio', 'Kelian', 'David', 'Pierre', 'Callum', 'Matthieu', 'Fabiola']
 
 function setup() {
   scene.setup();
-  // setInterval(function(){
-  //   if (Math.random() < 0.02) {
-  //     scene.grid.randomHighlight();
-  //     update();
-  //   }
-  // }, 100);
+  setInterval(function(){
+    var idx = Math.floor(Math.random() * names.length);
+    console.log(names[idx]);
+    scene.grid.highlight(names[idx]);
+    update();
+  }, 5000);
 }
 
 function update() {

@@ -18,6 +18,7 @@ function onTextureLoaded(texture) {
 		vertex.x = data.items[i].position.x;
 		vertex.y = data.items[i].position.y;
 		vertex.z = 0;
+    vertex.item = data.items[i];
 		geometry.vertices.push(vertex);
     // vertex colors
     var color = new THREE.Color();
@@ -52,7 +53,23 @@ function randomHighlight() {
   mesh.geometry.colorsNeedUpdate = true;
 }
 
+function highlight(filter) {
+  if (!mesh) return;
+  for (var i = 0; i < mesh.geometry.vertices.length; i++) {
+    var vertex = mesh.geometry.vertices[i];
+    var item = vertex.item;
+    var color = mesh.geometry.colors[i];
+    if (item.id.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
+      color.setHSL(0, 0, 1);
+    } else {
+      color.setHSL(0, 0, 0);
+    }
+  }
+  mesh.geometry.colorsNeedUpdate = true;
+}
+
 export default {
   setup,
-  randomHighlight
+  randomHighlight,
+  highlight
 }

@@ -5,10 +5,8 @@ for (var i = 0; i < filename2xy.length; i++) {
   var p = {};
   p.x =  36 + item[2] / 2.59 - 1280 * 0.5;
   p.y = 185 + item[1] / 2.60 - 2400 * 0.5;
-  if (item[0].indexOf('Mathilde') == -1) {
-    continue;
-  }
   items.push({
+    id : item[0],
     position : p
   });
 }
