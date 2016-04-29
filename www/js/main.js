@@ -4,12 +4,12 @@ var updateId, isActive = false;
 
 function setup() {
   scene.setup();
-  setInterval(function(){
-    if (Math.random() < 0.02) {
-      scene.grid.randomHighlight();
-      update();
-    }
-  }, 100);
+  // setInterval(function(){
+  //   if (Math.random() < 0.02) {
+  //     scene.grid.randomHighlight();
+  //     update();
+  //   }
+  // }, 100);
 }
 
 function update() {

@@ -21,11 +21,7 @@ function onTextureLoaded(texture) {
 		geometry.vertices.push(vertex);
     // vertex colors
     var color = new THREE.Color();
-    if (Math.random() < 0.1) {
-      color.setHSL( 0, 0, 1 );
-    } else {
-      color.setHSL( 0, 0, 0 );
-    }
+    color.setHSL(0, 0, 1);
     geometry.colors.push(color);
   }
 
