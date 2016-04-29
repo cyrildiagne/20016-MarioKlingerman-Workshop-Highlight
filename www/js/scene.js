@@ -29,7 +29,7 @@ function setup() {
 	document.body.appendChild(renderer.domElement);
 
   // setup mesh grid
-  // grid.setup((mesh) => scene.add(mesh));
+  grid.setup((mesh) => scene.add(mesh));
 
 	// load debug texture
 	var textureLoader = new THREE.TextureLoader();
@@ -98,7 +98,7 @@ function onWindowResize() {
 
 function render() {
   if (Math.random() < 0.02) {
-    grid.randomHighlight();
+    //grid.randomHighlight();
   }
 
   renderer.clear();

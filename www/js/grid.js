@@ -30,7 +30,7 @@ function onTextureLoaded(texture) {
       if (Math.random() < 0.1) {
         color.setHSL( 0, 0, 1 );
       } else {
-        color.setHSL( 0, 0, 0 );
+        color.setHSL( 0, 0, 1 );
       }
       geometry.colors.push(color);
 		}
