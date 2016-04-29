@@ -1,6 +1,6 @@
 import scene from 'js/scene.js';
 
-var updateId, isActive = true;
+var updateId, isActive = false;
 
 function setup() {
   scene.setup();
