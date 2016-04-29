@@ -14,8 +14,9 @@ function setup() {
 function onMessage(data) {
   clearInterval(idleAnimItv);
   if (data == 'reset') {
-    console.log('reset');
     scene.grid.reset();
+  } else if (data == 'all') {
+    scene.grid.all();
   } else {
     scene.grid.highlight(data);
   }

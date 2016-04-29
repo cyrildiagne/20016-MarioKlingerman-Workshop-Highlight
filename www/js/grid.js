@@ -50,6 +50,15 @@ function reset() {
   mesh.geometry.colorsNeedUpdate = true;
 }
 
+function all() {
+  if (!mesh) return;
+  for (var i = 0; i < mesh.geometry.colors.length; i++) {
+    var color = mesh.geometry.colors[i];
+    color.setHSL( 0, 0, 1 );
+  }
+  mesh.geometry.colorsNeedUpdate = true;
+}
+
 function randomHighlight() {
   if (!mesh) return;
   for (var i = 0; i < mesh.geometry.colors.length; i++) {
@@ -83,5 +92,6 @@ export default {
   setup,
   randomHighlight,
   highlight,
+  all,
   reset
 }
