@@ -1,0 +1,16 @@
+{
+  "name": "obj_server",
+  "version": "1.0.0",
+  "description": "object server for 1cv mid",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.4",
+    "ws": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
