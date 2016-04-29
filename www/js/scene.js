@@ -33,12 +33,14 @@ function setup() {
 
 	// load debug texture
 	var textureLoader = new THREE.TextureLoader();
-	textureLoader.load("res/grid.png", onDebugTextureLoaded);
+	// textureLoader.load("res/grid.png", onDebugTextureLoaded);
 
   // look for resize event
 	window.addEventListener('resize', onWindowResize, false);
 
-  render();
+  setTimeout(function(){
+    render();
+  }, 100);
 }
 
 function createFBO() {
