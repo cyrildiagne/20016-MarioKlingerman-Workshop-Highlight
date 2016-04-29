@@ -1,4 +1,5 @@
 import data from 'js/data.js';
+import settings from  'js/settings.js';
 
 var sprites = [];
 var mesh;
@@ -28,7 +29,7 @@ function onTextureLoaded(texture) {
 
   var material = new THREE.PointsMaterial( {
     map: texture,
-    size: 0.95,
+    size: settings.itemSize,
     transparent: true,
     vertexColors: THREE.VertexColors
   });
