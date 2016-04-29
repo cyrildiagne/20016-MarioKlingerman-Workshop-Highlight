@@ -1,13 +1,35 @@
 import scene from 'js/scene.js';
+import remote from 'js/remote.js';
 
 var updateId, isActive = false;
 var names = ['Andre', 'Pierry', 'Corentin', 'Luca', 'Justine', 'Adrien', 'Mathilde', 'Guillaume', 'Giulio', 'Kelian', 'David', 'Pierre', 'Callum', 'Matthieu', 'Fabiola']
+var idleAnimItv;
 
 function setup() {
   scene.setup();
-  setInterval(function(){
+  remote.connect(onMessage);
+  // launchIdleAnimation();
+}
+
+function onMessage(data) {
+  clearInterval(idleAnimItv);
+  if (data == 'reset') {
+    console.log('reset');
+    scene.grid.reset();
+  } else {
+    scene.grid.highlight(data);
+  }
+  update();
+}
+
+function launchIdleAnimation() {
+  if (idleAnimItv) {
+    clearInterval(idleAnimItv);
+  }
+  idleAnimItv = setInterval(function(){
     var idx = Math.floor(Math.random() * names.length);
     console.log(names[idx]);
+    scene.grid.reset();
     scene.grid.highlight(names[idx]);
     update();
   }, 5000);

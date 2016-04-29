@@ -41,6 +41,15 @@ function onTextureLoaded(texture) {
   }
 }
 
+function reset() {
+  if (!mesh) return;
+  for (var i = 0; i < mesh.geometry.colors.length; i++) {
+    var color = mesh.geometry.colors[i];
+    color.setHSL( 0, 0, 0 );
+  }
+  mesh.geometry.colorsNeedUpdate = true;
+}
+
 function randomHighlight() {
   if (!mesh) return;
   for (var i = 0; i < mesh.geometry.colors.length; i++) {
@@ -56,14 +65,15 @@ function randomHighlight() {
 
 function highlight(filter) {
   if (!mesh) return;
+
+  filter = filter.split('.')[0];
   for (var i = 0; i < mesh.geometry.vertices.length; i++) {
     var vertex = mesh.geometry.vertices[i];
     var item = vertex.item;
     var color = mesh.geometry.colors[i];
-    if (item.id.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
+    var id = item.id.split('.')[0];
+    if (id.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
       color.setHSL(0, 0, 1);
-    } else {
-      color.setHSL(0, 0, 0);
     }
   }
   mesh.geometry.colorsNeedUpdate = true;
@@ -72,5 +82,6 @@ function highlight(filter) {
 export default {
   setup,
   randomHighlight,
-  highlight
+  highlight,
+  reset
 }
