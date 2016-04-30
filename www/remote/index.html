@@ -1,0 +1,139 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+   <input type="text" id="myText" value="Type a word">
+   <button onclick="findmytext()">FIND</button><br>
+   <button onclick="turnallon()">SHOW ALL</button>
+   <div id="log"></div>
+
+   <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+   <!-- <script src="data.js"></script> -->
+   <script>
+   $( document ).ready(function() {
+     var input = document.getElementById('myText');
+     input.addEventListener('click', function(){
+       input.value = '';
+     });
+   });
+
+   var names = ['Andre', 'Pierry', 'Corentin', 'Luca', 'Justine', 'Adrien', 'Mathilde', 'Guillaume', 'Giulio', 'Kelian', 'David', 'Pierre', 'Callum', 'Matthieu', 'Fabiola']
+
+   var ws;
+
+   var data = [];
+   $.getJSON('data/workshop_object_data.json', function(json) {
+     var keys = Object.keys(json);
+     var num = 486;
+     for (var i = 0; i < num; i++) {
+       data[i] = {};
+       data[i]['Title of Object'] = json['Title of Object'][i];
+       data[i]['id'] = json['Photo File Name'][i];
+     }
+   });
+
+   connectWS();
+
+  function turnallon() {
+    ws.send('all');
+  }
+
+  function connectWS() {
+    var cyrilIp = '10.192.234.46';
+    var lauraIp = '10.192.234.92';
+    ws = new WebSocket('ws://'+lauraIp+':4080');
+    // ws.onmessage = function (event) {
+    //  console.log(event.data);
+    //  console.log(JSON.parse(event.data));
+    // };
+    setTimeout(function(){ ws.send('reset'); }, 500);
+  }
+
+  function findmytext() {
+
+    ws.send('reset');
+
+    $('#log').html('');
+
+    var wordToSearch = document.getElementById("myText").value;
+
+    if (names.indexOf(wordToSearch) != -1) {
+      ws.send(wordToSearch);
+      return;
+    }
+
+
+    var numberOfSearch = 50;
+    var requestParam = "/c/en/"+wordToSearch;
+
+    $.ajax({
+      // The URL for the request
+      url: "http://conceptnet5.media.mit.edu/data/5.4/search?",
+      // The data to send (will be converted to a query string)
+      data: {
+          end: requestParam,
+          limit: numberOfSearch
+      },
+      // Whether this is a POST or GET request
+      type: "GET",
+      // The type of data we expect back
+      dataType : "json",
+    })
+    // Code to run if the request succeeds (is done);
+    // The response is passed to the function
+    .done(function( json ) {
+       $( "<h1>" ).text( json.title ).appendTo( "body" );
+       $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
+    })
+    // Code to run if the request fails; the raw request and
+    // status codes are passed to the function
+    .fail(function( xhr, status, errorThrown ) {
+      alert( "Sorry, there was a problem!" );
+      console.log( "Error: " + errorThrown );
+      console.log( "Status: " + status );
+      console.dir( xhr );
+    })
+    // Code to run regardless of success or failure;
+    .always(function( xhr, status ) {
+      for(var i = 0;i<numberOfSearch;i++){
+        // relations entre les objets
+        if (xhr.edges[i]) {
+          findtag(xhr.edges[i].surfaceText);
+        }
+      }
+    });
+  }
+
+  function findtag(tag) {
+    if (!tag) {
+      return;
+    }
+    var log = "";
+    var ids = [];
+    for(var i=0; i<data.length;i++) {
+      var title = data[i]["Title of Object"];
+      var id = data[i]["id"];
+      if(title && (
+        title.toLowerCase().indexOf(tag) >- 1 ||
+        tag.indexOf(title.toLowerCase()) >- 1)
+      ) {
+        // remove brackets
+        var t = tag.replace(/[\[!@#$%^&*\]]/g, "");
+        $('#log').append(t + '<br>');
+        ids.push(id);
+      }
+    }
+    if (ids.length) {
+      ws.send(ids);
+      // console.log(ids);
+    }
+  }
+
+   </script>
+
+</body>
+</html>

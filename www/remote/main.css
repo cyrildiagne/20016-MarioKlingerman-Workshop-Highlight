@@ -1,0 +1,56 @@
+body {
+  background-color:black;
+  color: white;
+  padding: 30px;
+  padding-top: 100px;
+  text-align: center;
+}
+
+button {
+    background-color: #000;
+    font-family: helvetica;
+    width: 400px;
+    color: white;
+    padding: 12px 0px;
+    margin: 40px 0;
+    display: inline-block;
+    border: none;
+    border: 5px solid #ccc;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 32px;
+    text-align: center;
+    cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+
+}
+
+input[type=text], select {
+  color: white;
+  font-family: helvetica;
+  background-color: #000;
+  border: none;
+  border-bottom: 5px solid #ccc;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+  margin: auto;
+  width: 100%;
+  outline: none;
+}
+
+.conteneur {
+  width: 400px;
+  margin: auto;
+  margin-top:40vh;
+}
+
+#log {
+  text-align: center;
+  font-size: 30px;
+}
